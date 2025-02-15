@@ -14,7 +14,7 @@ export default function HomePage() {
   const handleSubmit = () => {
     if (email && message && amount && timeframe) {
       // Format the email body with proper spacing and formatting
-      const subject = `💌 New Inbox Offer: $${amount} for Response`;
+      const subject = `🤑URGENT: $${amount} Offer from inBucks.com`;
       const body = `
 Hello!
 
