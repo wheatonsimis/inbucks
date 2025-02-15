@@ -22,7 +22,7 @@ export default function HomePage() {
       <Card className="w-full max-w-md">
         <CardContent className="pt-6">
           <h1 className="text-3xl font-bold mb-2 text-center">inBucks.com</h1>
-          <div className="w-full h-px bg-border my-2"></div>
+          <div className="mx-auto h-px bg-border my-2" style={{ width: 'max-content' }}></div>
           <span className="text-xl text-muted-foreground block text-center">Buy & Sell Inbox Attention</span>
           {!offerSubmitted ? (
             <div className="space-y-4 mt-4">
