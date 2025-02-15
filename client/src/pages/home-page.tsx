@@ -90,8 +90,13 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                           setTimeframe(value);
                         }
                       }}
-                      className="pl-6"
+                      className={`pl-3 ${timeframe ? 'pr-12' : 'pr-3'}`}
                     />
+                    {timeframe && (
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                        hours
+                      </span>
+                    )}
                   </div>
                 </div>
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
