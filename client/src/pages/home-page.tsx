@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 
 export default function HomePage() {
+  const [senderEmail, setSenderEmail] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [amount, setAmount] = useState("");
@@ -13,12 +14,12 @@ export default function HomePage() {
   const [offerSubmitted, setOfferSubmitted] = useState(false);
 
   const handleSubmit = () => {
-    if (email && message && amount && timeframe) {
+    if (senderEmail && email && message && amount && timeframe) {
       const subject = `🤑URGENT: $${amount} Offer from inBucks.com`;
       const body = `
 Hello!
 
-Wheaton would like to pay you $${amount} to respond to his message within ${timeframe} hours (from the time this email was sent).
+${senderEmail} would like to pay you $${amount} to respond to his message within ${timeframe} hours (from the time this email was sent).
 
 To accept this offer, simply reply to this email. The sender will be notified and payment will be arranged securely through inBucks.com. If you don't already have an account with us, visit inBucks.com to make money responding to your emails.
 
@@ -46,7 +47,14 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             {!offerSubmitted ? (
               <div className="space-y-4 mt-4">
                 <Input 
-                  placeholder="Enter recipient's email" 
+                  placeholder="Your email" 
+                  type="email"
+                  value={senderEmail} 
+                  onChange={(e) => setSenderEmail(e.target.value)} 
+                />
+                <Input 
+                  placeholder="Recipient's email" 
+                  type="email"
                   value={email} 
                   onChange={(e) => setEmail(e.target.value)} 
                 />
@@ -80,6 +88,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   variant="outline"
                   onClick={() => {
                     setOfferSubmitted(false);
+                    setSenderEmail("");
                     setEmail("");
                     setMessage("");
                     setAmount("");
