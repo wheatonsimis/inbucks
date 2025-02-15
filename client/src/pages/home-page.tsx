@@ -75,13 +75,13 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   />
                 </div>
                 <Input 
-                  type="text"
-                  placeholder="Response time" 
-                  value={timeframe ? `${timeframe} hours` : ""} 
+                  type="number"
+                  placeholder="Response time (hours)" 
+                  value={timeframe} 
                   onChange={(e) => {
                     const value = e.target.value.replace(/[^0-9]/g, '');
                     setTimeframe(value);
-                  }}
+                  }} 
                 />
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
               </div>
