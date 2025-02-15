@@ -82,6 +82,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     const value = e.target.value.replace(/[^0-9]/g, '');
                     setTimeframe(value);
                   }} 
+                  className="pl-6"
                 />
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
               </div>
