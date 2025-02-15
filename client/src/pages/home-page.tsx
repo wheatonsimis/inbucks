@@ -80,7 +80,6 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                 <div className="flex items-center gap-4">
                   <span className="text-sm text-muted-foreground whitespace-nowrap w-32 text-right">Response time:</span>
                   <div className="relative flex-1 max-w-[200px]">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">Hours:</span>
                     <Input
                       type="number"
                       placeholder="hours"
@@ -91,7 +90,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                           setTimeframe(value);
                         }
                       }}
-                      className="pl-16"
+                      className="pl-6"
                     />
                   </div>
                 </div>
