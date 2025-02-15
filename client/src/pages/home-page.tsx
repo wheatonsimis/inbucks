@@ -18,14 +18,15 @@ export default function HomePage() {
       const body = `
 Hello!
 
-Someone would like to pay you $${amount} to respond to their message within ${timeframe} hours:
+Wheaton would like to pay you $${amount} to respond to his message within ${timeframe} hours (from the time this email was sent).
 
-${message}
-
-To accept this offer, simply reply to this email. The sender will be notified and payment will be arranged securely through inBucks.
+To accept this offer, simply reply to this email. The sender will be notified and payment will be arranged securely through inBucks.com. If you don't already have an account with us, SIGN UP HERE to make money responding to your emails.
 
 Best regards,
-inBucks Team
+inBucks.com
+__________
+
+inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
       `.trim();
 
       // Create the mailto URL with encoded parameters
