@@ -64,30 +64,36 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   onChange={(e) => setMessage(e.target.value)}
                   className="h-24"
                 />
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                  <Input
-                    type="number"
-                    placeholder="Offer amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    className="pl-6"
-                  />
+                <div className="flex items-center gap-4">
+                  <span className="text-muted-foreground whitespace-nowrap">Offer amount:</span>
+                  <div className="relative flex-1 max-w-[200px]">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                    <Input
+                      type="number"
+                      placeholder="0.00"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      className="pl-6"
+                    />
+                  </div>
                 </div>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">Hours:</span>
-                  <Input
-                    type="number"
-                    placeholder="Response time"
-                    value={timeframe}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/[^0-9]/g, "");
-                      if (value === "" || parseInt(value) >= 0) {
-                        setTimeframe(value);
-                      }
-                    }}
-                    className="pl-16"
-                  />
+                <div className="flex items-center gap-4">
+                  <span className="text-muted-foreground whitespace-nowrap">Response time:</span>
+                  <div className="relative flex-1 max-w-[200px]">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">Hours:</span>
+                    <Input
+                      type="number"
+                      placeholder="24"
+                      value={timeframe}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^0-9]/g, "");
+                        if (value === "" || parseInt(value) >= 0) {
+                          setTimeframe(value);
+                        }
+                      }}
+                      className="pl-16"
+                    />
+                  </div>
                 </div>
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
               </div>
