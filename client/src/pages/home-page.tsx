@@ -93,7 +93,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                       className="pl-3"
                     />
                     {timeframe && (
-                      <div 
+                      <div
                         className="absolute top-0 left-0 h-full pointer-events-none flex items-center"
                         style={{
                           left: `${timeframe.length * 8 + 16}px`
@@ -136,7 +136,10 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
           <Button variant="outline" asChild>
             <Link href="/auth">Log In</Link>
           </Button>
-          <Button asChild>
+          <Button
+            asChild
+            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black"
+          >
             <Link href="/auth">Sign Up</Link>
           </Button>
         </div>
