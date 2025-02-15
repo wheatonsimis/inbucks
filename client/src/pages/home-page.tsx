@@ -90,7 +90,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                           setTimeframe(value);
                         }
                       }}
-                      className={`pl-3 ${timeframe ? 'pr-12' : 'pr-3'}`}
+                      className="pl-3"
                     />
                     {timeframe && (
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
