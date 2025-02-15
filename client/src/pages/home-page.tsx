@@ -99,7 +99,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                           left: `${timeframe.length * 8 + 16}px`
                         }}
                       >
-                        <span className="text-sm text-muted-foreground"> hours</span>
+                        <span className="text-sm text-muted-foreground"> {timeframe === "1" ? "hour" : "hours"}</span>
                       </div>
                     )}
                   </div>
