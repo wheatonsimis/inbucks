@@ -37,17 +37,6 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <nav className="border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-end gap-4">
-          <Button variant="outline" asChild>
-            <Link href="/auth">Log In</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/auth">Sign Up</Link>
-          </Button>
-        </div>
-      </nav>
-
       <div className="flex flex-col items-center justify-center flex-grow p-4">
         <Card className="w-full max-w-md">
           <CardContent className="pt-6">
@@ -104,6 +93,16 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             )}
           </CardContent>
         </Card>
+
+        {/* Auth buttons below the card */}
+        <div className="flex gap-4 mt-8 justify-center">
+          <Button variant="outline" asChild>
+            <Link href="/auth">Log In</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/auth">Sign Up</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
