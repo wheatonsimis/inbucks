@@ -51,14 +51,12 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   type="email"
                   value={senderEmail}
                   onChange={(e) => setSenderEmail(e.target.value)}
-                  className="text-center w-1/2 mx-auto"
                 />
                 <Input
                   placeholder="Recipient's email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="text-center w-1/2 mx-auto"
                 />
                 <Textarea
                   placeholder="Enter your message"
@@ -66,17 +64,17 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   onChange={(e) => setMessage(e.target.value)}
                   className="h-24"
                 />
-                <div className="relative w-1/2 mx-auto">
+                <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
                   <Input
                     type="number"
                     placeholder="Offer amount"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="pl-6 text-center"
+                    className="pl-6"
                   />
                 </div>
-                <div className="relative w-1/2 mx-auto">
+                <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">Hours:</span>
                   <Input
                     type="number"
@@ -88,7 +86,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                         setTimeframe(value);
                       }
                     }}
-                    className="pl-16 text-center"
+                    className="pl-16"
                   />
                 </div>
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
