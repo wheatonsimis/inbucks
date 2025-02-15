@@ -1,8 +1,12 @@
 import { User, InsertUser, Offer, Transaction } from "@shared/schema";
 import session from "express-session";
-import createMemoryStore from "memorystore";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
+import { users, offers, transactions } from "@shared/schema";
+import connectPg from "connect-pg-simple";
+import { pool } from "./db";
 
-const MemoryStore = createMemoryStore(session);
+const PostgresSessionStore = connectPg(session);
 
 export interface IStorage {
   sessionStore: session.Store;
@@ -16,75 +20,60 @@ export interface IStorage {
   createTransaction(transaction: Omit<Transaction, "id" | "createdAt">): Promise<Transaction>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private offers: Map<number, Offer>;
-  private transactions: Map<number, Transaction>;
+export class DatabaseStorage implements IStorage {
   sessionStore: session.Store;
-  private userId: number;
-  private offerId: number;
-  private transactionId: number;
 
   constructor() {
-    this.users = new Map();
-    this.offers = new Map();
-    this.transactions = new Map();
-    this.sessionStore = new MemoryStore({
-      checkPeriod: 86400000,
+    this.sessionStore = new PostgresSessionStore({
+      pool,
+      createTableIfMissing: true,
     });
-    this.userId = 1;
-    this.offerId = 1;
-    this.transactionId = 1;
   }
 
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.userId++;
-    const user = { ...insertUser, id, emailVerified: false, stripeCustomerId: null };
-    this.users.set(id, user);
+    const [user] = await db.insert(users).values(insertUser).returning();
     return user;
   }
 
   async getOffers(): Promise<Offer[]> {
-    return Array.from(this.offers.values());
+    return await db.select().from(offers);
   }
 
   async getOffer(id: number): Promise<Offer | undefined> {
-    return this.offers.get(id);
+    const [offer] = await db.select().from(offers).where(eq(offers.id, id));
+    return offer;
   }
 
   async createOffer(offer: Omit<Offer, "id">): Promise<Offer> {
-    const id = this.offerId++;
-    const newOffer = { ...offer, id };
-    this.offers.set(id, newOffer);
+    const [newOffer] = await db.insert(offers).values(offer).returning();
     return newOffer;
   }
 
   async getUserTransactions(userId: number): Promise<Transaction[]> {
-    return Array.from(this.transactions.values()).filter(
-      (t) => t.buyerId === userId || t.sellerId === userId
-    );
+    return await db
+      .select()
+      .from(transactions)
+      .where(eq(transactions.buyerId, userId))
+      .or(eq(transactions.sellerId, userId));
   }
 
   async createTransaction(transaction: Omit<Transaction, "id" | "createdAt">): Promise<Transaction> {
-    const id = this.transactionId++;
-    const newTransaction = { 
-      ...transaction, 
-      id, 
-      createdAt: new Date()
-    };
-    this.transactions.set(id, newTransaction);
+    const [newTransaction] = await db
+      .insert(transactions)
+      .values({ ...transaction, createdAt: new Date() })
+      .returning();
     return newTransaction;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
