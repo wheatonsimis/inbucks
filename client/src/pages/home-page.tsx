@@ -83,7 +83,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     <Input
                       type="number"
                       placeholder="hours"
-                      value={timeframe ? `${timeframe} hours` : ""}
+                      value={timeframe}
                       onChange={(e) => {
                         const value = e.target.value.replace(/[^0-9]/g, "");
                         if (value === "" || parseInt(value) >= 0) {
@@ -92,6 +92,16 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                       }}
                       className="pl-3"
                     />
+                    {timeframe && (
+                      <div 
+                        className="absolute top-0 left-0 h-full pointer-events-none flex items-center"
+                        style={{
+                          left: `${timeframe.length * 8 + 12}px`
+                        }}
+                      >
+                        <span className="text-sm text-muted-foreground">hours</span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
