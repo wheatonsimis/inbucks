@@ -46,47 +46,49 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             <span className="text-xl text-muted-foreground block text-center">Buy & Sell Inbox Attention</span>
             {!offerSubmitted ? (
               <div className="space-y-4 mt-4">
-                <Input 
-                  placeholder="Your email" 
+                <Input
+                  placeholder="Your email"
                   type="email"
-                  value={senderEmail} 
-                  onChange={(e) => setSenderEmail(e.target.value)} 
+                  value={senderEmail}
+                  onChange={(e) => setSenderEmail(e.target.value)}
+                  className="text-center w-1/2 mx-auto"
                 />
-                <Input 
-                  placeholder="Recipient's email" 
+                <Input
+                  placeholder="Recipient's email"
                   type="email"
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="text-center w-1/2 mx-auto"
                 />
-                <Textarea 
-                  placeholder="Enter your message" 
-                  value={message} 
-                  onChange={(e) => setMessage(e.target.value)} 
+                <Textarea
+                  placeholder="Enter your message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="h-24"
                 />
-                <div className="relative">
+                <div className="relative w-1/2 mx-auto">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                  <Input 
-                    type="number" 
-                    placeholder="Offer amount" 
-                    value={amount} 
+                  <Input
+                    type="number"
+                    placeholder="Offer amount"
+                    value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="pl-6"
+                    className="pl-6 text-center"
                   />
                 </div>
-                <div className="relative">
+                <div className="relative w-1/2 mx-auto">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">Hours:</span>
-                  <Input 
+                  <Input
                     type="number"
-                    placeholder="Response time" 
-                    value={timeframe} 
+                    placeholder="Response time"
+                    value={timeframe}
                     onChange={(e) => {
-                      const value = e.target.value.replace(/[^0-9]/g, '');
-                      if (value === '' || parseInt(value) >= 0) {
+                      const value = e.target.value.replace(/[^0-9]/g, "");
+                      if (value === "" || parseInt(value) >= 0) {
                         setTimeframe(value);
                       }
-                    }} 
-                    className="pl-16"
+                    }}
+                    className="pl-16 text-center"
                   />
                 </div>
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
@@ -97,7 +99,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   <p className="text-green-600 font-semibold">Offer sent to {email}!</p>
                   <p className="text-muted-foreground">They have {timeframe} hours to respond for ${amount}.</p>
                 </div>
-                <Button 
+                <Button
                   variant="outline"
                   onClick={() => {
                     setOfferSubmitted(false);
