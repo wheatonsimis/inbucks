@@ -13,6 +13,26 @@ export default function HomePage() {
 
   const handleSubmit = () => {
     if (email && message && amount && timeframe) {
+      // Format the email body with proper spacing and formatting
+      const subject = `💌 New Inbox Offer: $${amount} for Response`;
+      const body = `
+Hello!
+
+Someone would like to pay you $${amount} to respond to their message within ${timeframe} hours:
+
+${message}
+
+To accept this offer, simply reply to this email. The sender will be notified and payment will be arranged securely through inBucks.
+
+Best regards,
+inBucks Team
+      `.trim();
+
+      // Create the mailto URL with encoded parameters
+      const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Open the email client
+      window.location.href = mailtoUrl;
       setOfferSubmitted(true);
     }
   };
