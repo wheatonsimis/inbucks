@@ -74,30 +74,21 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     className="pl-6"
                   />
                 </div>
-                <Input 
-                  type="number"
-                  placeholder="Response time (hours)" 
-                  value={timeframe} 
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/[^0-9]/g, '');
-                    if (value === '' || parseInt(value) >= 0) {
-                      setTimeframe(value);
-                    }
-                  }} 
-                  className="pl-6"
-                  onBlur={() => {
-                    if (timeframe) {
-                      const input = document.activeElement as HTMLInputElement;
-                      if (input) {
-                        input.value = `${timeframe} hours`;
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">Hours:</span>
+                  <Input 
+                    type="number"
+                    placeholder="Response time" 
+                    value={timeframe} 
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/[^0-9]/g, '');
+                      if (value === '' || parseInt(value) >= 0) {
+                        setTimeframe(value);
                       }
-                    }
-                  }}
-                  onFocus={(e) => {
-                    const value = e.target.value.replace(/\s*hours$/, '');
-                    e.target.value = value;
-                  }}
-                />
+                    }} 
+                    className="pl-16"
+                  />
+                </div>
                 <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
               </div>
             ) : (
