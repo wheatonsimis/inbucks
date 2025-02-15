@@ -74,8 +74,24 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             </div>
           ) : (
             <div className="text-center mt-4">
-              <p className="text-green-600 font-semibold">Offer sent to {email}!</p>
-              <p className="text-muted-foreground">They have {timeframe} hours to respond for ${amount}.</p>
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-green-600 font-semibold">Offer sent to {email}!</p>
+                  <p className="text-muted-foreground">They have {timeframe} hours to respond for ${amount}.</p>
+                </div>
+                <Button 
+                  variant="outline"
+                  onClick={() => {
+                    setOfferSubmitted(false);
+                    setEmail("");
+                    setMessage("");
+                    setAmount("");
+                    setTimeframe("");
+                  }}
+                >
+                  Return to Home
+                </Button>
+              </div>
             </div>
           )}
         </CardContent>
