@@ -20,7 +20,7 @@ Hello!
 
 Wheaton would like to pay you $${amount} to respond to his message within ${timeframe} hours (from the time this email was sent).
 
-To accept this offer, simply reply to this email. The sender will be notified and payment will be arranged securely through inBucks.com. If you don't already have an account with us, SIGN UP HERE to make money responding to your emails.
+To accept this offer, simply reply to this email. The sender will be notified and payment will be arranged securely through www.inbucks.com. If you don't already have an account with us, visit www.inbucks.com to make money responding to your emails.
 
 Best regards,
 inBucks.com
