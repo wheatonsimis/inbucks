@@ -73,25 +73,24 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
               <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
             </div>
           ) : (
-            <div className="text-center mt-4">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-green-600 font-semibold">Offer sent to {email}!</p>
-                  <p className="text-muted-foreground">They have {timeframe} hours to respond for ${amount}.</p>
-                </div>
-                <Button 
-                  variant="outline"
-                  onClick={() => {
-                    setOfferSubmitted(false);
-                    setEmail("");
-                    setMessage("");
-                    setAmount("");
-                    setTimeframe("");
-                  }}
-                >
-                  Return to Home
-                </Button>
+            <div className="text-center mt-4 space-y-4">
+              <div>
+                <p className="text-green-600 font-semibold">Offer sent to {email}!</p>
+                <p className="text-muted-foreground">They have {timeframe} hours to respond for ${amount}.</p>
               </div>
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  setOfferSubmitted(false);
+                  setEmail("");
+                  setMessage("");
+                  setAmount("");
+                  setTimeframe("");
+                }}
+                className="mx-auto"
+              >
+                Return to Home
+              </Button>
             </div>
           )}
         </CardContent>
