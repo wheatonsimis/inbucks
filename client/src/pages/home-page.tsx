@@ -65,7 +65,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   className="h-24"
                 />
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-muted-foreground whitespace-nowrap w-32">Offer amount:</span>
+                  <span className="text-sm text-muted-foreground whitespace-nowrap w-32 text-right">Offer amount:</span>
                   <div className="relative flex-1 max-w-[200px]">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
                     <Input
@@ -78,7 +78,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-muted-foreground whitespace-nowrap w-32">Response time:</span>
+                  <span className="text-sm text-muted-foreground whitespace-nowrap w-32 text-right">Response time:</span>
                   <div className="relative flex-1 max-w-[200px]">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">Hours:</span>
                     <Input
