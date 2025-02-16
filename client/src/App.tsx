@@ -10,17 +10,23 @@ import Dashboard from "@/pages/dashboard";
 import Offers from "@/pages/offers";
 import Transactions from "@/pages/transactions";
 import { ProtectedRoute } from "./lib/protected-route";
+import { Footer } from "@/components/footer";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={HomePage} />
-      <Route path="/auth" component={AuthPage} />
-      <ProtectedRoute path="/dashboard" component={Dashboard} />
-      <ProtectedRoute path="/offers" component={Offers} />
-      <ProtectedRoute path="/transactions" component={Transactions} />
-      <Route component={NotFound} />
-    </Switch>
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-1">
+        <Switch>
+          <Route path="/" component={HomePage} />
+          <Route path="/auth" component={AuthPage} />
+          <ProtectedRoute path="/dashboard" component={Dashboard} />
+          <ProtectedRoute path="/offers" component={Offers} />
+          <ProtectedRoute path="/transactions" component={Transactions} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+      <Footer />
+    </div>
   );
 }
 
