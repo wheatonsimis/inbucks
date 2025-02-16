@@ -77,6 +77,8 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
                       className="pl-6"
+                      min="5"
+                      step="5"
                     />
                   </div>
                 </div>
