@@ -96,6 +96,8 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                         }
                       }}
                       className="pl-3"
+                      step="6"
+                      min="6"
                     />
                     {timeframe && (
                       <div
