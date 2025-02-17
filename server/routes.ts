@@ -7,6 +7,11 @@ import { insertOfferSchema } from "@shared/schema";
 export function registerRoutes(app: Express): Server {
   setupAuth(app);
 
+  // Add health check endpoint
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "ok", timestamp: new Date().toISOString() });
+  });
+
   // Offers
   app.get("/api/offers", async (req, res) => {
     const offers = await storage.getOffers();
@@ -15,7 +20,7 @@ export function registerRoutes(app: Express): Server {
 
   app.post("/api/offers", async (req, res) => {
     if (!req.isAuthenticated()) return res.sendStatus(401);
-    
+
     try {
       const offerData = insertOfferSchema.parse(req.body);
       const offer = await storage.createOffer({
@@ -31,14 +36,14 @@ export function registerRoutes(app: Express): Server {
   // Transactions
   app.get("/api/transactions", async (req, res) => {
     if (!req.isAuthenticated()) return res.sendStatus(401);
-    
+
     const transactions = await storage.getUserTransactions(req.user.id);
     res.json(transactions);
   });
 
   app.post("/api/transactions", async (req, res) => {
     if (!req.isAuthenticated()) return res.sendStatus(401);
-    
+
     try {
       const { offerId } = req.body;
       const offer = await storage.getOffer(offerId);

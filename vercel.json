@@ -8,7 +8,10 @@
     {
       "src": "client/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist/public" }
+      "config": {
+        "distDir": "dist/public",
+        "buildCommand": "npm run build"
+      }
     }
   ],
   "routes": [
@@ -18,7 +21,10 @@
     },
     {
       "src": "/(.*)",
-      "dest": "client/index.html"
+      "dest": "/client/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
