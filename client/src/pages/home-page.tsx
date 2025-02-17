@@ -40,13 +40,13 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
     <div className="flex flex-col min-h-screen bg-background">
       {/* Top navigation */}
       <div className="p-4 flex justify-end">
-        <Button variant="outline" asChild>
+        <Button variant="outline" asChild className="rounded-full">
           <Link href="/auth">Log In</Link>
         </Button>
       </div>
 
       <div className="flex flex-col items-center pt-32 flex-grow">
-        <Card className="w-full max-w-md mx-4">
+        <Card className="w-full max-w-md mx-4 rounded-xl">
           <CardContent className="pt-6">
             <h1 className="text-3xl font-bold mb-2 text-center">
               inBucks.com
@@ -61,18 +61,20 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   type="email"
                   value={senderEmail}
                   onChange={(e) => setSenderEmail(e.target.value)}
+                  className="rounded-lg"
                 />
                 <Input
                   placeholder="Recipient's email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="rounded-lg"
                 />
                 <Textarea
                   placeholder="Enter your message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="h-24"
+                  className="h-24 rounded-lg"
                 />
                 <div className="flex items-center gap-4">
                   <span className="text-sm text-muted-foreground whitespace-nowrap w-32 text-right">Offer amount:</span>
@@ -83,7 +85,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                       placeholder="0"
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
-                      className="pl-6"
+                      className="pl-6 rounded-lg"
                       min="5"
                       step="5"
                     />
@@ -102,7 +104,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                           setTimeframe(value);
                         }
                       }}
-                      className="pl-3"
+                      className="pl-3 rounded-lg"
                       step="6"
                       min="6"
                     />
@@ -118,7 +120,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     )}
                   </div>
                 </div>
-                <Button onClick={handleSubmit} className="w-full">Submit Offer</Button>
+                <Button onClick={handleSubmit} className="w-full rounded-lg">Submit Offer</Button>
               </div>
             ) : (
               <div className="text-center mt-4 space-y-4">
@@ -136,7 +138,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     setAmount("");
                     setTimeframe("");
                   }}
-                  className="mx-auto"
+                  className="mx-auto rounded-lg"
                 >
                   Return to Home
                 </Button>
@@ -149,7 +151,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         <div className="mt-8">
           <Button
             asChild
-            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black"
+            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black rounded-full px-8"
           >
             <Link href="/auth">Sign Up</Link>
           </Button>
