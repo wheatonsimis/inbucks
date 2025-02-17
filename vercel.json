@@ -2,12 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/index.ts",
-      "use": "@vercel/node"
-    },
-    {
       "src": "package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/node",
+      "config": {
+        "buildCommand": "npm run build"
+      }
     }
   ],
   "routes": [
@@ -16,11 +15,16 @@
       "dest": "server/index.ts"
     },
     {
-      "handle": "filesystem"
+      "src": "/assets/(.*)",
+      "dest": "dist/public/assets/$1"
+    },
+    {
+      "src": "/(.+\\.[a-z]+)$",
+      "dest": "dist/public/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "index.html"
+      "dest": "dist/public/index.html"
     }
   ]
 }

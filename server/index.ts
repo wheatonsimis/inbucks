@@ -1,6 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { setupVite, log } from "./vite";
 import path from "path";
 
 const app = express();
@@ -51,22 +51,31 @@ app.use((req, res, next) => {
     res.status(status).json({ message });
   });
 
-  if (app.get("env") === "development") {
+  if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
     // In production, serve static files from the correct directory
-    app.use(express.static(path.join(__dirname, '../dist/public')));
+    const staticDir = path.join(process.cwd(), 'dist', 'public');
+    console.log('Serving static files from:', staticDir);
 
-    // Serve index.html for all non-API routes
-    app.get('*', (req, res) => {
+    // Serve static files with proper caching
+    app.use(express.static(staticDir, {
+      maxAge: '1y',
+      etag: true
+    }));
+
+    // For all non-API routes, serve the index.html
+    app.get('*', (req, res, next) => {
       if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(__dirname, '../dist/public/index.html'));
+        res.sendFile(path.join(staticDir, 'index.html'));
+      } else {
+        next();
       }
     });
   }
 
   const PORT = process.env.PORT || 5000;
   server.listen(PORT, () => {
-    log(`serving on port ${PORT}`);
+    log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
   });
 })();
