@@ -58,8 +58,8 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                 <sup className="text-sm ml-0.5">™</sup>
               </span>
             </h1>
-            <div className="w-full h-px bg-gray-400 my-2"></div>
-            <span className="text-xl text-gray-700 block text-center">Buy & Sell Inbox Attention</span>
+            <div className="w-full h-px bg-border my-2"></div>
+            <span className="text-xl text-muted-foreground block text-center">Buy & Sell Inbox Attention</span>
             {!offerSubmitted ? (
               <div className="space-y-4 mt-4">
                 <Input
