@@ -6,6 +6,7 @@ import { insertOfferSchema } from "@shared/schema";
 
 export function registerRoutes(app: Express): Server {
   // Set up authentication routes first
+  console.log('[ROUTES] Setting up auth routes...');
   setupAuth(app);
 
   // Add health check endpoint
@@ -66,6 +67,7 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  console.log('[ROUTES] Creating HTTP server...');
   const httpServer = createServer(app);
   return httpServer;
 }

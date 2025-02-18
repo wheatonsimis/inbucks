@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
   res.on("finish", () => {
     const duration = Date.now() - start;
-    console.log(`[RESPONSE] ${req.method} ${path} ${res.statusCode} in ${duration}ms`); // Add this line
+    console.log(`[RESPONSE] ${req.method} ${path} ${res.statusCode} in ${duration}ms`); 
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 
 (async () => {
   // Register API routes first
-  console.log("[SETUP] Registering routes..."); // Add this line
+  console.log("[SETUP] Registering routes...");
   const server = await registerRoutes(app);
 
   // Error handling middleware
@@ -70,13 +70,15 @@ app.use((req, res, next) => {
       etag: true
     }));
 
-    // Only serve index.html for non-API routes
-    app.get('*', (req, res, next) => {
+    // Handle all routes
+    app.all('*', (req, res, next) => {
+      console.log('[REQUEST] Handling route:', req.path);
+      // API routes should be handled by the API router
       if (req.path.startsWith('/api')) {
-        console.log('[API] Forwarding to API handler:', req.path); // Add this line
-        next(); // Let API routes be handled by the API router
+        console.log('[API] Forwarding to API handler:', req.path);
+        next();
       } else {
-        console.log('[SPA] Serving index.html for:', req.path); // Add this line
+        console.log('[SPA] Serving index.html for:', req.path);
         res.sendFile(path.join(staticDir, 'index.html'));
       }
     });
