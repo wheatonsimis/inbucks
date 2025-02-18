@@ -5,6 +5,7 @@ import { storage } from "./storage";
 import { insertOfferSchema } from "@shared/schema";
 
 export function registerRoutes(app: Express): Server {
+  // Set up authentication routes first
   setupAuth(app);
 
   // Add health check endpoint

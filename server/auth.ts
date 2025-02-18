@@ -42,20 +42,7 @@ export function setupAuth(app: Express) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.use(
-    new LocalStrategy(async (username, password, done) => {
-      try {
-        const user = await storage.getUserByUsername(username);
-        if (!user || !(await comparePasswords(password, user.password))) {
-          return done(null, false);
-        }
-        return done(null, user);
-      } catch (err) {
-        return done(err);
-      }
-    }),
-  );
-
+  // Add logging for Google Strategy
   passport.use(
     new GoogleStrategy(
       {
@@ -65,9 +52,15 @@ export function setupAuth(app: Express) {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
+          console.log("Google auth callback received:", { 
+            email: profile.emails?.[0]?.value,
+            displayName: profile.displayName 
+          });
+
           let user = await storage.getUserByEmail(profile.emails![0].value);
 
           if (!user) {
+            console.log("Creating new user for Google auth");
             user = await storage.createUser({
               username: profile.emails![0].value,
               email: profile.emails![0].value,
@@ -78,12 +71,12 @@ export function setupAuth(app: Express) {
 
           return done(null, user);
         } catch (err) {
+          console.error("Error in Google auth callback:", err);
           return done(err as Error);
         }
       }
     )
   );
-
 
   passport.serializeUser((user, done) => done(null, user.id));
   passport.deserializeUser(async (id: number, done) => {
@@ -93,6 +86,22 @@ export function setupAuth(app: Express) {
     } catch (err) {
       done(err);
     }
+  });
+
+  // Add logging for auth routes
+  app.get("/api/auth/google", (req, res, next) => {
+    console.log("Initiating Google auth");
+    passport.authenticate("google", { 
+      scope: ["profile", "email"]
+    })(req, res, next);
+  });
+
+  app.get("/api/auth/google/callback", (req, res, next) => {
+    console.log("Received Google auth callback");
+    passport.authenticate("google", { 
+      failureRedirect: "/auth",
+      successRedirect: "/"
+    })(req, res, next);
   });
 
   app.post("/api/register", async (req, res, next) => {
@@ -121,10 +130,6 @@ export function setupAuth(app: Express) {
     res.status(200).json(req.user);
   });
 
-  app.get("/api/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-  app.get("/api/auth/google/callback", passport.authenticate("google", { failureRedirect: "/auth" }), (req, res) => {
-    res.redirect("/");
-  });
 
   app.post("/api/logout", (req, res, next) => {
     req.logout((err) => {
