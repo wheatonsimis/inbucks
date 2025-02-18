@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
+  console.log(`[REQUEST] ${req.method} ${path}`); // Add this line for debugging
   let capturedJsonResponse: Record<string, any> | undefined = undefined;
 
   const originalResJson = res.json;
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
   res.on("finish", () => {
     const duration = Date.now() - start;
+    console.log(`[RESPONSE] ${req.method} ${path} ${res.statusCode} in ${duration}ms`); // Add this line
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
@@ -44,13 +46,14 @@ app.use((req, res, next) => {
 
 (async () => {
   // Register API routes first
+  console.log("[SETUP] Registering routes..."); // Add this line
   const server = await registerRoutes(app);
 
   // Error handling middleware
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-    console.error(err);
+    console.error('[ERROR]', err);
     res.status(status).json({ message });
   });
 
@@ -70,8 +73,10 @@ app.use((req, res, next) => {
     // Only serve index.html for non-API routes
     app.get('*', (req, res, next) => {
       if (req.path.startsWith('/api')) {
+        console.log('[API] Forwarding to API handler:', req.path); // Add this line
         next(); // Let API routes be handled by the API router
       } else {
+        console.log('[SPA] Serving index.html for:', req.path); // Add this line
         res.sendFile(path.join(staticDir, 'index.html'));
       }
     });

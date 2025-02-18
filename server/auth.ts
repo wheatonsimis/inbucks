@@ -30,6 +30,8 @@ async function comparePasswords(supplied: string, stored: string) {
 }
 
 export function setupAuth(app: Express) {
+  console.log("[AUTH] Setting up authentication..."); // Add this line
+
   const sessionSettings: session.SessionOptions = {
     secret: process.env.SESSION_SECRET || "development_secret",
     resave: false,
@@ -88,7 +90,9 @@ export function setupAuth(app: Express) {
     }
   });
 
-  // Add logging for auth routes
+  console.log("[AUTH] Registering auth routes..."); // Add this line
+
+  // Register auth routes with explicit console logs
   app.get("/api/auth/google", (req, res, next) => {
     console.log("Initiating Google auth");
     passport.authenticate("google", { 
@@ -142,4 +146,6 @@ export function setupAuth(app: Express) {
     if (!req.isAuthenticated()) return res.sendStatus(401);
     res.json(req.user);
   });
+
+  console.log("[AUTH] Auth setup complete"); // Add this line
 }
