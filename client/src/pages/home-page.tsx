@@ -40,8 +40,8 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
     <div className="flex flex-col min-h-screen bg-background">
       {/* Top navigation */}
       <div className="p-4 flex justify-end">
-        <Button variant="outline" asChild className="rounded-full">
-          <Link href="/auth">Log In</Link>
+        <Button variant="outline" asChild className="rounded-full hover:bg-gray-100 border-gray-300 text-gray-600">
+          <Link href="/auth">Sign in</Link>
         </Button>
       </div>
 
