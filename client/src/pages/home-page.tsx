@@ -38,7 +38,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#faf8f6' }}>
       {/* Top navigation */}
       <div className="p-4 flex justify-end">
         <Button variant="outline" asChild className="rounded-full hover:bg-gray-100 border-gray-300 text-gray-600">
