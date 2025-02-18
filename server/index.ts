@@ -11,6 +11,7 @@ app.set('trust proxy', 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Add request logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -42,8 +43,10 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Register API routes first
   const server = await registerRoutes(app);
 
+  // Error handling middleware
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -64,12 +67,12 @@ app.use((req, res, next) => {
       etag: true
     }));
 
-    // For all non-API routes, serve the index.html
+    // Only serve index.html for non-API routes
     app.get('*', (req, res, next) => {
-      if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(staticDir, 'index.html'));
+      if (req.path.startsWith('/api')) {
+        next(); // Let API routes be handled by the API router
       } else {
-        next();
+        res.sendFile(path.join(staticDir, 'index.html'));
       }
     });
   }
