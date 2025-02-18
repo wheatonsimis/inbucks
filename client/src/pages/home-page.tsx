@@ -53,10 +53,12 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         <Card className="w-full max-w-md mx-4 rounded-xl">
           <CardContent className="pt-6">
             <h1 className="text-3xl font-bold mb-2 text-center">
-              inBucks.com
-              <sup className="text-sm">™</sup>
+              <span className="inline-flex items-center">
+                inBucks.com
+                <sup className="text-sm ml-0.5">™</sup>
+              </span>
             </h1>
-            <div className="mx-auto h-px bg-border my-2 w-64"></div>
+            <div className="w-full h-px bg-border my-2"></div>
             <span className="text-xl text-muted-foreground block text-center">Buy & Sell Inbox Attention</span>
             {!offerSubmitted ? (
               <div className="space-y-4 mt-4">
