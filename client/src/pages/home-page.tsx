@@ -55,6 +55,15 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
       </div>
 
       <div className="flex flex-col items-center pt-32 flex-grow">
+        {/* George Washington Image */}
+        <div className="flex justify-center mb-6">
+          <img
+            src="/george.png"
+            alt="George Washington"
+            className="w-24 h-24 object-contain"
+          />
+        </div>
+
         <Card className="w-full max-w-md mx-4 rounded-xl">
           <CardContent className="pt-6">
             <h1 className="text-3xl font-bold mb-2 text-center">
