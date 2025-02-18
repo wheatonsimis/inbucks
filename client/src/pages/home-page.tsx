@@ -39,8 +39,13 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
 
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#faf8f6' }}>
-      {/* Top navigation */}
-      <div className="p-4 flex justify-end">
+      {/* Top navigation with logo */}
+      <div className="p-4 flex justify-between items-center">
+        <img 
+          src="/inbucks-logo.png" 
+          alt="inBucks Logo" 
+          className="h-10 w-10 rounded-full" // Added rounded-full for circular shape
+        />
         <Button variant="outline" asChild className="rounded-full hover:bg-gray-100 border-gray-300 text-gray-600">
           <Link href="/auth" className="flex items-center gap-2">
             <User className="h-4 w-4" />
