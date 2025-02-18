@@ -5,8 +5,8 @@ import { z } from "zod";
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
-  password: text("password").notNull(),
-  email: text("email").notNull(),
+  password: text("password"),  // Made optional for OAuth users
+  email: text("email").notNull().unique(),
   stripeCustomerId: text("stripe_customer_id"),
   emailVerified: boolean("email_verified").default(false),
 });
