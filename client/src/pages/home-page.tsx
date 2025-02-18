@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
+import { User } from "lucide-react";
 
 export default function HomePage() {
   const [senderEmail, setSenderEmail] = useState("");
@@ -41,7 +42,10 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
       {/* Top navigation */}
       <div className="p-4 flex justify-end">
         <Button variant="outline" asChild className="rounded-full hover:bg-gray-100 border-gray-300 text-gray-600">
-          <Link href="/auth">Sign in</Link>
+          <Link href="/auth" className="flex items-center gap-2">
+            <User className="h-4 w-4" />
+            Sign in
+          </Link>
         </Button>
       </div>
 
