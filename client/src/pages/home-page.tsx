@@ -101,7 +101,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     onChange={(e) => setMessage(e.target.value)}
                     className="h-24 rounded-lg"
                   />
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center gap-4">
                     <span className="text-sm text-muted-foreground whitespace-nowrap w-24 text-right">Offer amount:</span>
                     <div className="relative flex-1 max-w-[150px]">
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
@@ -116,7 +116,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                       />
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center gap-4">
                     <span className="text-sm text-muted-foreground whitespace-nowrap w-24 text-right">Response time:</span>
                     <div className="relative flex-1 max-w-[150px]">
                       <Input
