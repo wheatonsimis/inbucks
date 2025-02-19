@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { User } from "lucide-react";
+import { User, Quote } from "lucide-react"; // Add Quote import
 
 export default function HomePage() {
   const [senderEmail, setSenderEmail] = useState("");
@@ -186,7 +186,9 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             {/* Testimonial 1 */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
-                <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
+                <div className="absolute -top-4 left-4">
+                  <Quote className="h-6 w-6 text-primary/20" />
+                </div>
                 <p className="text-muted-foreground mb-4">
                   "inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others."
                 </p>
@@ -200,7 +202,9 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             {/* Testimonial 2 */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
-                <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
+                <div className="absolute -top-4 left-4">
+                  <Quote className="h-6 w-6 text-primary/20" />
+                </div>
                 <p className="text-muted-foreground mb-4">
                   "As an industry expert, I now get compensated for the time I spend sharing knowledge via email."
                 </p>
@@ -214,7 +218,9 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             {/* Testimonial 3 */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
-                <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
+                <div className="absolute -top-4 left-4">
+                  <Quote className="h-6 w-6 text-primary/20" />
+                </div>
                 <p className="text-muted-foreground mb-4">
                   "This platform has helped me prioritize my inbox while creating value for both parties involved."
                 </p>
