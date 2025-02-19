@@ -195,7 +195,12 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     <strong className="block">Priya Natarajan</strong>
                     <span className="text-muted-foreground">Talent Agent</span>
                   </div>
-                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border">
+                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border overflow-hidden">
+                    <img
+                      src="/indian woman.png"
+                      alt="Priya Natarajan"
+                      className="h-full w-full object-cover"
+                    />
                     <AvatarFallback>PN</AvatarFallback>
                   </Avatar>
                 </CardContent>
