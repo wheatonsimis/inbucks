@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { User } from "lucide-react"; 
+import { User } from "lucide-react";
 
 export default function HomePage() {
   const [senderEmail, setSenderEmail] = useState("");
@@ -42,10 +42,10 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
       {/* Top navigation with logo */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto p-4 flex justify-between items-center">
-          <img 
-            src="/inbucks-logo.png" 
-            alt="inBucks Logo" 
-            className="h-10 w-10 rounded-full" 
+          <img
+            src="/inbucks-logo.png"
+            alt="inBucks Logo"
+            className="h-10 w-10 rounded-full"
           />
           <Button variant="outline" asChild className="rounded-full hover:bg-gray-100 border-gray-300 text-gray-600">
             <Link href="/auth" className="flex items-center gap-2">
@@ -173,7 +173,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         <div className="mt-8">
           <Button
             asChild
-            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black rounded-full px-12 py-5 text-xl font-bold h-auto"
+            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black rounded-full px-12 py-5 text-xl font-bold h-auto shadow-lg hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200"
           >
             <Link href="/auth">Sign Up</Link>
           </Button>
