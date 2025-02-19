@@ -186,7 +186,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Testimonial 1 (Emma Thompson) */}
             <Card className="relative border-0 shadow-none">
-              <CardContent className="pt-6 pb-28">
+              <CardContent className="pt-6 pb-6">
                 <p className="text-muted-foreground mb-4">
                   "inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others."
                 </p>
@@ -194,7 +194,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   <strong className="block">Emma Thompson</strong>
                   <span className="text-muted-foreground">Talent Agent</span>
                 </div>
-                <Avatar className="absolute bottom-8 right-4 h-[105px] w-[105px] border-3 border-border">
+                <Avatar className="absolute -bottom-4 right-4 h-[105px] w-[105px] border-3 border-border">
                   <AvatarFallback>ET</AvatarFallback>
                 </Avatar>
               </CardContent>
@@ -202,7 +202,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
 
             {/* Testimonial 2 (Michael Rodriguez) */}
             <Card className="relative border-0 shadow-none">
-              <CardContent className="pt-6 pb-28">
+              <CardContent className="pt-6 pb-6">
                 <p className="text-muted-foreground mb-4">
                   "As an industry expert, I now get compensated for the time I spend sharing knowledge via email."
                 </p>
@@ -210,7 +210,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   <strong className="block">Michael Rodriguez</strong>
                   <span className="text-muted-foreground">Financial Advisor</span>
                 </div>
-                <Avatar className="absolute bottom-8 right-4 h-[105px] w-[105px] border-3 border-border">
+                <Avatar className="absolute -bottom-4 right-4 h-[105px] w-[105px] border-3 border-border">
                   <AvatarFallback>MR</AvatarFallback>
                 </Avatar>
               </CardContent>
@@ -218,7 +218,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
 
             {/* Testimonial 3 (Sarah Chen) */}
             <Card className="relative border-0 shadow-none">
-              <CardContent className="pt-6 pb-28">
+              <CardContent className="pt-6 pb-6">
                 <p className="text-muted-foreground mb-4">
                   "This platform has helped me prioritize my inbox while creating value for both parties involved."
                 </p>
@@ -226,7 +226,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   <strong className="block">Sarah Chen</strong>
                   <span className="text-muted-foreground">Tech Consultant</span>
                 </div>
-                <Avatar className="absolute bottom-8 right-4 h-[105px] w-[105px] border-3 border-border">
+                <Avatar className="absolute -bottom-4 right-4 h-[105px] w-[105px] border-3 border-border">
                   <AvatarFallback>SC</AvatarFallback>
                 </Avatar>
               </CardContent>
