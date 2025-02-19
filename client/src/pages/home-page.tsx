@@ -185,7 +185,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         <div className="w-full max-w-5xl mx-auto px-4 py-16">
           <h2 className="text-2xl font-bold text-center mb-8">What Our Users Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Testimonial 1 (Emma Thompson) */}
+            {/* Testimonial cards */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6 pb-[105px]">
                 <p className="text-muted-foreground mb-4">
@@ -201,7 +201,6 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
               </CardContent>
             </Card>
 
-            {/* Testimonial 2 (Michael Rodriguez) */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6 pb-[105px]">
                 <p className="text-muted-foreground mb-4">
@@ -217,7 +216,6 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
               </CardContent>
             </Card>
 
-            {/* Testimonial 3 (Sarah Chen) */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6 pb-[105px]">
                 <p className="text-muted-foreground mb-4">
@@ -236,7 +234,6 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         </div>
       </div>
 
-      {/* Use the Footer component */}
       <Footer />
     </div>
   );
