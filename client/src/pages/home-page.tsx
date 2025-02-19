@@ -195,7 +195,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     <strong className="block">Priya Natarajan</strong>
                     <span className="text-muted-foreground">Talent Agent</span>
                   </div>
-                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border overflow-hidden">
+                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-4 border-white shadow-lg overflow-hidden">
                     <img
                       src="/priya-profile.png"
                       alt="Priya Natarajan"
@@ -215,7 +215,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     <strong className="block">Michael Rodriguez</strong>
                     <span className="text-muted-foreground">Financial Advisor</span>
                   </div>
-                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border overflow-hidden">
+                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-4 border-white shadow-lg overflow-hidden">
                     <img
                       src="/michael-profile.png"
                       alt="Michael Rodriguez"
@@ -235,7 +235,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     <strong className="block">Sarah Chen</strong>
                     <span className="text-muted-foreground">Tech Consultant</span>
                   </div>
-                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border overflow-hidden">
+                  <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-4 border-white shadow-lg overflow-hidden">
                     <AvatarFallback>SC</AvatarFallback>
                   </Avatar>
                 </CardContent>
