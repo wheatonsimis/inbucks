@@ -173,7 +173,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         <div className="mt-8">
           <Button
             asChild
-            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black rounded-full px-12 py-6 text-xl h-auto"
+            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black rounded-full px-12 py-6 text-xl font-bold h-auto"
           >
             <Link href="/auth">Sign Up</Link>
           </Button>
