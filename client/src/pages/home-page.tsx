@@ -167,6 +167,53 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
           </CardContent>
         </Card>
 
+        {/* Add testimonials section */}
+        <div className="w-full max-w-5xl mx-auto px-4 py-16">
+          <h2 className="text-2xl font-bold text-center mb-8">What Our Users Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Testimonial 1 */}
+            <Card className="relative">
+              <CardContent className="pt-6">
+                <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
+                <p className="text-muted-foreground mb-4">
+                  "inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others."
+                </p>
+                <div className="text-sm">
+                  <strong className="block">Sarah Chen</strong>
+                  <span className="text-muted-foreground">Tech Consultant</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 2 */}
+            <Card className="relative">
+              <CardContent className="pt-6">
+                <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
+                <p className="text-muted-foreground mb-4">
+                  "As an industry expert, I now get compensated for the time I spend sharing knowledge via email."
+                </p>
+                <div className="text-sm">
+                  <strong className="block">Michael Rodriguez</strong>
+                  <span className="text-muted-foreground">Financial Advisor</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 3 */}
+            <Card className="relative">
+              <CardContent className="pt-6">
+                <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
+                <p className="text-muted-foreground mb-4">
+                  "This platform has helped me prioritize my inbox while creating value for both parties involved."
+                </p>
+                <div className="text-sm">
+                  <strong className="block">Emma Thompson</strong>
+                  <span className="text-muted-foreground">Business Strategist</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
         {/* Centered Sign Up button */}
         <div className="mt-8">
           <Button
