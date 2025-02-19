@@ -194,7 +194,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   <strong className="block">Emma Thompson</strong>
                   <span className="text-muted-foreground">Talent Agent</span>
                 </div>
-                <Avatar className="absolute bottom-4 right-4 h-[105px] w-[105px] border-3 border-border">
+                <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border">
                   <AvatarFallback>ET</AvatarFallback>
                 </Avatar>
               </CardContent>
@@ -210,7 +210,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   <strong className="block">Michael Rodriguez</strong>
                   <span className="text-muted-foreground">Financial Advisor</span>
                 </div>
-                <Avatar className="absolute bottom-4 right-4 h-[105px] w-[105px] border-3 border-border">
+                <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border">
                   <AvatarFallback>MR</AvatarFallback>
                 </Avatar>
               </CardContent>
@@ -226,7 +226,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   <strong className="block">Sarah Chen</strong>
                   <span className="text-muted-foreground">Tech Consultant</span>
                 </div>
-                <Avatar className="absolute bottom-4 right-4 h-[105px] w-[105px] border-3 border-border">
+                <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border">
                   <AvatarFallback>SC</AvatarFallback>
                 </Avatar>
               </CardContent>
