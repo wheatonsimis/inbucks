@@ -40,21 +40,23 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: '#faf8f6' }}>
       {/* Top navigation with logo */}
-      <div className="p-4 flex justify-between items-center">
-        <img 
-          src="/inbucks-logo.png" 
-          alt="inBucks Logo" 
-          className="h-10 w-10 rounded-full" // Added rounded-full for circular shape
-        />
-        <Button variant="outline" asChild className="rounded-full hover:bg-gray-100 border-gray-300 text-gray-600">
-          <Link href="/auth" className="flex items-center gap-2">
-            <User className="h-4 w-4" />
-            Sign in
-          </Link>
-        </Button>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto p-4 flex justify-between items-center">
+          <img 
+            src="/inbucks-logo.png" 
+            alt="inBucks Logo" 
+            className="h-10 w-10 rounded-full" 
+          />
+          <Button variant="outline" asChild className="rounded-full hover:bg-gray-100 border-gray-300 text-gray-600">
+            <Link href="/auth" className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Sign in
+            </Link>
+          </Button>
+        </div>
       </div>
 
-      <div className="flex flex-col items-center flex-grow">
+      <div className="flex flex-col items-center flex-grow pt-20">
         {/* George Washington Image */}
         <div className="flex justify-center">
           <img
