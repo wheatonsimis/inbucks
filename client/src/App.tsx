@@ -10,7 +10,6 @@ import Dashboard from "@/pages/dashboard";
 import Offers from "@/pages/offers";
 import Transactions from "@/pages/transactions";
 import { ProtectedRoute } from "./lib/protected-route";
-import { Footer } from "@/components/footer";
 
 function Router() {
   return (
@@ -25,7 +24,6 @@ function Router() {
           <Route component={NotFound} />
         </Switch>
       </div>
-      <Footer />
     </div>
   );
 }
