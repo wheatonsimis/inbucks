@@ -183,20 +183,20 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         <div className="w-full max-w-5xl mx-auto px-4 py-16">
           <h2 className="text-2xl font-bold text-center mb-8">What Our Users Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Testimonial 1 */}
+            {/* Testimonial 1 (Emma Thompson) */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <p className="text-muted-foreground mb-4">
-                  "inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others."
+                  "This platform has helped me prioritize my inbox while creating value for both parties involved."
                 </p>
                 <div className="text-sm">
-                  <strong className="block">Sarah Chen</strong>
-                  <span className="text-muted-foreground">Tech Consultant</span>
+                  <strong className="block">Emma Thompson</strong>
+                  <span className="text-muted-foreground">Talent Agent</span>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Testimonial 2 */}
+            {/* Testimonial 2 (Michael Rodriguez - unchanged) */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <p className="text-muted-foreground mb-4">
@@ -209,15 +209,15 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
               </CardContent>
             </Card>
 
-            {/* Testimonial 3 */}
+            {/* Testimonial 3 (Sarah Chen) */}
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <p className="text-muted-foreground mb-4">
-                  "This platform has helped me prioritize my inbox while creating value for both parties involved."
+                  "inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others."
                 </p>
                 <div className="text-sm">
-                  <strong className="block">Emma Thompson</strong>
-                  <span className="text-muted-foreground">Business Strategist</span>
+                  <strong className="block">Sarah Chen</strong>
+                  <span className="text-muted-foreground">Tech Consultant</span>
                 </div>
               </CardContent>
             </Card>
