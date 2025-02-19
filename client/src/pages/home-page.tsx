@@ -187,7 +187,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <p className="text-muted-foreground mb-4">
-                  inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others.
+                  "inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others."
                 </p>
                 <div className="text-sm">
                   <strong className="block">Sarah Chen</strong>
@@ -200,7 +200,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <p className="text-muted-foreground mb-4">
-                  As an industry expert, I now get compensated for the time I spend sharing knowledge via email.
+                  "As an industry expert, I now get compensated for the time I spend sharing knowledge via email."
                 </p>
                 <div className="text-sm">
                   <strong className="block">Michael Rodriguez</strong>
@@ -213,7 +213,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <p className="text-muted-foreground mb-4">
-                  This platform has helped me prioritize my inbox while creating value for both parties involved.
+                  "This platform has helped me prioritize my inbox while creating value for both parties involved."
                 </p>
                 <div className="text-sm">
                   <strong className="block">Emma Thompson</strong>
