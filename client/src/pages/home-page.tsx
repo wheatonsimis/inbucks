@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Link } from "wouter";
 import { User } from "lucide-react";
+import { Footer } from "@/components/footer";
 
 export default function HomePage() {
   const [senderEmail, setSenderEmail] = useState("");
@@ -235,13 +236,8 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="w-full py-6 px-4 bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto flex justify-end gap-4 text-sm text-muted-foreground">
-          <span>© 2025 inBucks™ | All rights reserved.</span>
-          <span>Privacy Policy | Terms of Service</span>
-        </div>
-      </footer>
+      {/* Use the Footer component */}
+      <Footer />
     </div>
   );
 }
