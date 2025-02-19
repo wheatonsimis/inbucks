@@ -197,7 +197,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                   </div>
                   <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border overflow-hidden">
                     <img
-                      src="/indian woman.png"
+                      src="/priya-profile.png"
                       alt="Priya Natarajan"
                       className="h-full w-full object-cover"
                     />
