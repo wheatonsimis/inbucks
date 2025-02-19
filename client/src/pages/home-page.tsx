@@ -184,7 +184,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
           <h2 className="text-2xl font-bold text-center mb-8">What Our Users Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Testimonial 1 */}
-            <Card className="relative border-0">
+            <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
                 <p className="text-muted-foreground mb-4">
@@ -198,7 +198,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             </Card>
 
             {/* Testimonial 2 */}
-            <Card className="relative border-0">
+            <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
                 <p className="text-muted-foreground mb-4">
@@ -212,7 +212,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             </Card>
 
             {/* Testimonial 3 */}
-            <Card className="relative border-0">
+            <Card className="relative border-0 shadow-none">
               <CardContent className="pt-6">
                 <div className="absolute -top-4 left-4 text-4xl text-primary/20">"</div>
                 <p className="text-muted-foreground mb-4">
