@@ -167,6 +167,16 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
           </CardContent>
         </Card>
 
+        {/* Centered Sign Up button */}
+        <div className="mt-8">
+          <Button
+            asChild
+            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black rounded-full px-8"
+          >
+            <Link href="/auth">Sign Up</Link>
+          </Button>
+        </div>
+
         {/* Add testimonials section */}
         <div className="w-full max-w-5xl mx-auto px-4 py-16">
           <h2 className="text-2xl font-bold text-center mb-8">What Our Users Say</h2>
@@ -213,15 +223,6 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
               </CardContent>
             </Card>
           </div>
-        </div>
-        {/* Centered Sign Up button */}
-        <div className="mt-8">
-          <Button
-            asChild
-            className="bg-[#E3FCD6] hover:bg-[#E3FCD6]/90 text-black rounded-full px-8"
-          >
-            <Link href="/auth">Sign Up</Link>
-          </Button>
         </div>
       </div>
     </div>
