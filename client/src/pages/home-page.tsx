@@ -192,11 +192,11 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
                     "inBucks has revolutionized how I handle my inbox. Now I can monetize my expertise while helping others."
                   </p>
                   <div className="text-sm">
-                    <strong className="block">Emma Thompson</strong>
+                    <strong className="block">Priya Natarajan</strong>
                     <span className="text-muted-foreground">Talent Agent</span>
                   </div>
                   <Avatar className="absolute bottom-[40px] right-4 h-[105px] w-[105px] border-3 border-border">
-                    <AvatarFallback>ET</AvatarFallback>
+                    <AvatarFallback>PN</AvatarFallback>
                   </Avatar>
                 </CardContent>
               </Card>
