@@ -71,7 +71,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
             <h1 className="text-3xl font-bold mb-2 text-center">
               <span className="relative inline-block">
                 inBucks.com
-                <sup className="absolute -top-1 -right-3 text-sm">™</sup>
+                <sup className="absolute -top-1 -right-2 text-sm">™</sup>
               </span>
             </h1>
             <div className="mx-auto w-64 h-px bg-gray-300 my-2"></div>
@@ -225,7 +225,7 @@ inBucks.com is a marketplace connecting buyers and sellers of inbox attention.
         </div>
       </div>
       <footer className="w-full py-6 px-4 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto flex justify-end gap-8 text-sm text-muted-foreground">
+        <div className="max-w-7xl mx-auto flex justify-end gap-4 text-sm text-muted-foreground">
           <span>© 2025 inBucks™ | All rights reserved.</span>
           <span>Privacy Policy | Terms of Service</span>
         </div>
