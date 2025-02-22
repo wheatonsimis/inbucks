@@ -4,9 +4,8 @@ import { z } from "zod";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  username: text("username").notNull().unique(),
-  password: text("password"),  // Made optional for OAuth users
   email: text("email").notNull().unique(),
+  password: text("password").notNull(),
   stripeCustomerId: text("stripe_customer_id"),
   emailVerified: boolean("email_verified").default(false),
   createdAt: timestamp("created_at").defaultNow(),
@@ -45,9 +44,8 @@ export const offers = pgTable("offers", {
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
   email: true,
+  password: true,
 });
 
 export const insertOfferSchema = createInsertSchema(offers).pick({

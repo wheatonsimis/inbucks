@@ -30,7 +30,6 @@ async function comparePasswords(supplied: string, stored: string) {
 }
 
 const registerSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
@@ -57,15 +56,15 @@ export function setupAuth(app: Express) {
 
   console.log("[AUTH] Configuring passport strategies");
   passport.use(
-    new LocalStrategy(async (username, password, done) => {
+    new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
       try {
-        console.log("[AUTH] Attempting local login for username:", username);
-        const user = await storage.getUserByUsername(username);
+        console.log("[AUTH] Attempting login for email:", email);
+        const user = await storage.getUserByEmail(email);
         if (!user || !user.password || !(await comparePasswords(password, user.password))) {
           console.log("[AUTH] Login failed: Invalid credentials");
-          return done(null, false, { message: "Invalid username or password" });
+          return done(null, false, { message: "Invalid email or password" });
         }
-        console.log("[AUTH] Login successful for user:", username);
+        console.log("[AUTH] Login successful for user:", email);
         return done(null, user);
       } catch (err) {
         console.error("[AUTH] Login error:", err);
@@ -95,15 +94,9 @@ export function setupAuth(app: Express) {
 
   // Registration endpoint
   app.post("/api/register", async (req, res) => {
-    console.log("[AUTH] Registration attempt:", { username: req.body.username, email: req.body.email });
+    console.log("[AUTH] Registration attempt:", { email: req.body.email });
     try {
       const validatedData = registerSchema.parse(req.body);
-
-      const existingUser = await storage.getUserByUsername(validatedData.username);
-      if (existingUser) {
-        console.log("[AUTH] Registration failed: Username exists");
-        return res.status(400).json({ message: "Username already exists" });
-      }
 
       const existingEmail = await storage.getUserByEmail(validatedData.email);
       if (existingEmail) {
@@ -139,7 +132,7 @@ export function setupAuth(app: Express) {
 
   // Login endpoint
   app.post("/api/login", (req, res, next) => {
-    console.log("[AUTH] Login attempt:", req.body.username);
+    console.log("[AUTH] Login attempt:", req.body.email);
     passport.authenticate("local", (err, user, info) => {
       if (err) {
         console.error("[AUTH] Login error:", err);

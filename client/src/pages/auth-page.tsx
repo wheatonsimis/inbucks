@@ -10,7 +10,6 @@ import { useToast } from "@/hooks/use-toast";
 export default function AuthPage() {
   const { user, loginMutation, registerMutation } = useAuth();
   const { toast } = useToast();
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +26,7 @@ export default function AuthPage() {
     try {
       if (isLogin) {
         await loginMutation.mutateAsync({
-          username,
+          email,
           password,
         });
         toast({
@@ -36,7 +35,6 @@ export default function AuthPage() {
         });
       } else {
         await registerMutation.mutateAsync({
-          username,
           email,
           password,
         });
@@ -68,31 +66,17 @@ export default function AuthPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
-              id="username"
-              type="text"
-              placeholder="johndoe"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               disabled={isLoading}
             />
           </div>
-          {!isLogin && (
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={isLoading}
-              />
-            </div>
-          )}
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input
