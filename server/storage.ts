@@ -1,8 +1,8 @@
-import { User, InsertUser, Offer, Transaction } from "@shared/schema";
+import { User, InsertUser, Message, Transaction } from "@shared/schema";
 import session from "express-session";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
-import { users, offers, transactions } from "@shared/schema";
+import { users, messages, transactions } from "@shared/schema";
 import connectPg from "connect-pg-simple";
 import { pool } from "./db";
 
@@ -14,10 +14,9 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  getOffers(): Promise<Offer[]>;
-  getOffer(id: number): Promise<Offer | undefined>;
-  createOffer(offer: Omit<Offer, "id">): Promise<Offer>;
+  getUserMessages(userId: number): Promise<Message[]>;
   getUserTransactions(userId: number): Promise<Transaction[]>;
+  createMessage(message: Omit<Message, "id" | "createdAt" | "updatedAt">): Promise<Message>;
   createTransaction(transaction: Omit<Transaction, "id" | "createdAt">): Promise<Transaction>;
 }
 
@@ -51,32 +50,34 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  async getOffers(): Promise<Offer[]> {
-    return await db.select().from(offers);
-  }
-
-  async getOffer(id: number): Promise<Offer | undefined> {
-    const [offer] = await db.select().from(offers).where(eq(offers.id, id));
-    return offer;
-  }
-
-  async createOffer(offer: Omit<Offer, "id">): Promise<Offer> {
-    const [newOffer] = await db.insert(offers).values(offer).returning();
-    return newOffer;
+  async getUserMessages(userId: number): Promise<Message[]> {
+    return await db
+      .select()
+      .from(messages)
+      .where(eq(messages.senderId, userId))
+      .or(eq(messages.recipientId, userId));
   }
 
   async getUserTransactions(userId: number): Promise<Transaction[]> {
     return await db
       .select()
       .from(transactions)
-      .where(eq(transactions.buyerId, userId))
-      .or(eq(transactions.sellerId, userId));
+      .where(eq(transactions.senderId, userId))
+      .or(eq(transactions.recipientId, userId));
+  }
+
+  async createMessage(message: Omit<Message, "id" | "createdAt" | "updatedAt">): Promise<Message> {
+    const [newMessage] = await db
+      .insert(messages)
+      .values(message)
+      .returning();
+    return newMessage;
   }
 
   async createTransaction(transaction: Omit<Transaction, "id" | "createdAt">): Promise<Transaction> {
     const [newTransaction] = await db
       .insert(transactions)
-      .values({ ...transaction, createdAt: new Date() })
+      .values(transaction)
       .returning();
     return newTransaction;
   }

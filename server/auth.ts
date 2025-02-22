@@ -30,8 +30,6 @@ async function comparePasswords(supplied: string, stored: string) {
 }
 
 export function setupAuth(app: Express) {
-  console.log("[AUTH] Setting up authentication..."); // Add this line
-
   const sessionSettings: session.SessionOptions = {
     secret: process.env.SESSION_SECRET || "development_secret",
     resave: false,
@@ -44,7 +42,20 @@ export function setupAuth(app: Express) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // Add logging for Google Strategy
+  passport.use(
+    new LocalStrategy(async (username, password, done) => {
+      try {
+        const user = await storage.getUserByUsername(username);
+        if (!user || !user.password || !(await comparePasswords(password, user.password))) {
+          return done(null, false);
+        }
+        return done(null, user);
+      } catch (err) {
+        return done(err as Error);
+      }
+    }),
+  );
+
   passport.use(
     new GoogleStrategy(
       {
@@ -54,26 +65,19 @@ export function setupAuth(app: Express) {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          console.log("Google auth callback received:", { 
-            email: profile.emails?.[0]?.value,
-            displayName: profile.displayName 
-          });
-
           let user = await storage.getUserByEmail(profile.emails![0].value);
 
           if (!user) {
-            console.log("Creating new user for Google auth");
             user = await storage.createUser({
               username: profile.emails![0].value,
               email: profile.emails![0].value,
-              password: "", // Not needed for OAuth
+              password: "", 
               emailVerified: true,
             });
           }
 
           return done(null, user);
         } catch (err) {
-          console.error("Error in Google auth callback:", err);
           return done(err as Error);
         }
       }
@@ -90,23 +94,6 @@ export function setupAuth(app: Express) {
     }
   });
 
-  console.log("[AUTH] Registering auth routes..."); // Add this line
-
-  // Register auth routes with explicit console logs
-  app.get("/api/auth/google", (req, res, next) => {
-    console.log("Initiating Google auth");
-    passport.authenticate("google", { 
-      scope: ["profile", "email"]
-    })(req, res, next);
-  });
-
-  app.get("/api/auth/google/callback", (req, res, next) => {
-    console.log("Received Google auth callback");
-    passport.authenticate("google", { 
-      failureRedirect: "/auth",
-      successRedirect: "/"
-    })(req, res, next);
-  });
 
   app.post("/api/register", async (req, res, next) => {
     try {
@@ -134,7 +121,6 @@ export function setupAuth(app: Express) {
     res.status(200).json(req.user);
   });
 
-
   app.post("/api/logout", (req, res, next) => {
     req.logout((err) => {
       if (err) return next(err);
@@ -146,6 +132,4 @@ export function setupAuth(app: Express) {
     if (!req.isAuthenticated()) return res.sendStatus(401);
     res.json(req.user);
   });
-
-  console.log("[AUTH] Auth setup complete"); // Add this line
 }

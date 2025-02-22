@@ -5,20 +5,42 @@ import { Label } from "@/components/ui/label";
 import { Redirect } from "wouter";
 import { SocialAuthButtons } from "@/components/social-auth-buttons";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function AuthPage() {
-  const { user } = useAuth();
+  const { user, loginMutation, registerMutation } = useAuth();
+  const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/dashboard" />;
   }
 
-  const handleEmailSignup = (e: React.FormEvent) => {
+  const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder for email/password signup
-    console.log("Email signup clicked", { email, password });
+    setIsLoading(true);
+
+    try {
+      await registerMutation.mutateAsync({
+        username: email,
+        email,
+        password,
+      });
+      toast({
+        title: "Account created successfully",
+        description: "Welcome to inBucks!",
+      });
+    } catch (error) {
+      toast({
+        title: "Registration failed",
+        description: error instanceof Error ? error.message : "Please try again",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -34,6 +56,7 @@ export default function AuthPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
           <div className="space-y-2">
@@ -45,10 +68,11 @@ export default function AuthPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
-          <Button type="submit" className="w-full">
-            Sign up with Email
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Creating Account..." : "Sign up with Email"}
           </Button>
         </form>
 
