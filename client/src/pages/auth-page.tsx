@@ -22,7 +22,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#faf8f6' }}>
       <div className="w-full max-w-md space-y-4">
         <form onSubmit={handleEmailSignup} className="space-y-4">
           <div className="space-y-2">
@@ -57,7 +57,7 @@ export default function AuthPage() {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-gray-50 px-2 text-muted-foreground">
+            <span className="bg-[#faf8f6] px-2 text-muted-foreground">
               Or continue with
             </span>
           </div>
