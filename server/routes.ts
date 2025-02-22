@@ -2,12 +2,16 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertOfferSchema } from "@shared/schema";
+import { setupAuth } from "./auth";
 
 export function registerRoutes(app: Express): Server {
   // Add health check endpoint
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
   });
+
+  // Set up authentication routes first
+  setupAuth(app);
 
   // Offers
   app.get("/api/offers", async (req, res) => {
