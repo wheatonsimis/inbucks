@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { SiGoogle, SiApple, SiMicrosoftoutlook } from "react-icons/si";
+import { SiGoogle, SiApple, SiMicrosoft } from "react-icons/si";
 
 export function SocialAuthButtons() {
   const handleGoogleLogin = () => {
@@ -39,7 +39,7 @@ export function SocialAuthButtons() {
         className="w-full flex items-center gap-2"
         onClick={handleOutlookLogin}
       >
-        <SiMicrosoftoutlook className="h-5 w-5" />
+        <SiMicrosoft className="h-5 w-5" />
         Continue with Outlook
       </Button>
     </div>
