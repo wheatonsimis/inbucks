@@ -56,21 +56,31 @@ export function setupAuth(app: Express) {
 
   console.log("[AUTH] Configuring passport strategies");
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-      try {
-        console.log("[AUTH] Attempting login for email:", email);
-        const user = await storage.getUserByEmail(email);
-        if (!user || !user.password || !(await comparePasswords(password, user.password))) {
-          console.log("[AUTH] Login failed: Invalid credentials");
-          return done(null, false, { message: "Invalid email or password" });
+    new LocalStrategy(
+      { usernameField: 'email' },
+      async (email, password, done) => {
+        try {
+          console.log("[AUTH] Attempting login for email:", email);
+          const user = await storage.getUserByEmail(email);
+          if (!user || !user.password) {
+            console.log("[AUTH] Login failed: User not found or no password");
+            return done(null, false, { message: "Invalid email or password" });
+          }
+
+          const isValid = await comparePasswords(password, user.password);
+          if (!isValid) {
+            console.log("[AUTH] Login failed: Invalid password");
+            return done(null, false, { message: "Invalid email or password" });
+          }
+
+          console.log("[AUTH] Login successful for user:", email);
+          return done(null, user);
+        } catch (err) {
+          console.error("[AUTH] Login error:", err);
+          return done(err as Error);
         }
-        console.log("[AUTH] Login successful for user:", email);
-        return done(null, user);
-      } catch (err) {
-        console.error("[AUTH] Login error:", err);
-        return done(err as Error);
       }
-    }),
+    )
   );
 
   passport.serializeUser((user, done) => {
@@ -83,6 +93,7 @@ export function setupAuth(app: Express) {
       console.log("[AUTH] Deserializing user:", id);
       const user = await storage.getUser(id);
       if (!user) {
+        console.log("[AUTH] Deserialization failed: User not found");
         return done(new Error("User not found"));
       }
       done(null, user);
@@ -105,8 +116,9 @@ export function setupAuth(app: Express) {
       }
 
       const hashedPassword = await hashPassword(validatedData.password);
+      console.log("[AUTH] Creating new user");
       const user = await storage.createUser({
-        ...validatedData,
+        email: validatedData.email,
         password: hashedPassword,
       });
 
@@ -155,15 +167,19 @@ export function setupAuth(app: Express) {
 
   // Logout endpoint
   app.post("/api/logout", (req, res) => {
-    console.log("[AUTH] Logout attempt for user:", req.user?.id);
-    req.logout((err) => {
-      if (err) {
-        console.error("[AUTH] Logout error:", err);
-        return res.status(500).json({ message: "Error during logout" });
-      }
-      console.log("[AUTH] Logout successful");
+    if (req.user) {
+      console.log("[AUTH] Logout attempt for user:", req.user.id);
+      req.logout((err) => {
+        if (err) {
+          console.error("[AUTH] Logout error:", err);
+          return res.status(500).json({ message: "Error during logout" });
+        }
+        console.log("[AUTH] Logout successful");
+        res.sendStatus(200);
+      });
+    } else {
       res.sendStatus(200);
-    });
+    }
   });
 
   // User info endpoint

@@ -25,6 +25,7 @@ export default function AuthPage() {
 
     try {
       if (isLogin) {
+        console.log("Attempting login with:", { email });
         await loginMutation.mutateAsync({
           email,
           password,
@@ -34,16 +35,18 @@ export default function AuthPage() {
           description: "Welcome back!",
         });
       } else {
+        console.log("Attempting registration with:", { email });
         await registerMutation.mutateAsync({
           email,
           password,
         });
         toast({
-          title: "Account created successfully",
-          description: "Welcome to the platform!",
+          title: "Registration successful",
+          description: "Welcome to our platform!",
         });
       }
     } catch (error) {
+      console.error("Auth error:", error);
       toast({
         title: isLogin ? "Login failed" : "Registration failed",
         description: error instanceof Error ? error.message : "Please try again",
