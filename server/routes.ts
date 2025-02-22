@@ -1,14 +1,9 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { setupAuth } from "./auth";
 import { storage } from "./storage";
 import { insertOfferSchema } from "@shared/schema";
 
 export function registerRoutes(app: Express): Server {
-  // Set up authentication routes first
-  console.log('[ROUTES] Setting up auth routes...');
-  setupAuth(app);
-
   // Add health check endpoint
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
@@ -35,10 +30,16 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  // Messages
+  app.get("/api/messages", async (req, res) => {
+    if (!req.isAuthenticated()) return res.sendStatus(401);
+    const messages = await storage.getUserMessages(req.user.id);
+    res.json(messages);
+  });
+
   // Transactions
   app.get("/api/transactions", async (req, res) => {
     if (!req.isAuthenticated()) return res.sendStatus(401);
-
     const transactions = await storage.getUserTransactions(req.user.id);
     res.json(transactions);
   });
@@ -47,18 +48,12 @@ export function registerRoutes(app: Express): Server {
     if (!req.isAuthenticated()) return res.sendStatus(401);
 
     try {
-      const { offerId } = req.body;
-      const offer = await storage.getOffer(offerId);
-      if (!offer) {
-        return res.status(404).json({ error: "Offer not found" });
-      }
-
       const transaction = await storage.createTransaction({
-        offerId,
-        buyerId: req.user.id,
-        sellerId: offer.userId,
-        amount: offer.price,
-        status: "pending",
+        senderId: req.user.id,
+        recipientId: req.body.recipientId,
+        messageId: req.body.messageId,
+        amount: req.body.amount,
+        status: "pending"
       });
 
       res.status(201).json(transaction);
