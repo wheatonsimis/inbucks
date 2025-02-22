@@ -4,7 +4,9 @@ async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
     let errorMessage;
     try {
-      const errorData = await res.json();
+      // Clone the response before trying to read it as JSON
+      const clonedRes = res.clone();
+      const errorData = await clonedRes.json();
       errorMessage = errorData.message || res.statusText;
     } catch {
       errorMessage = await res.text() || res.statusText;

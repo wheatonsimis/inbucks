@@ -117,13 +117,13 @@ export function setupAuth(app: Express) {
         password: hashedPassword,
       });
 
-      console.log("[AUTH] User created successfully:", user.id);
       req.login(user, (err) => {
         if (err) {
           console.error("[AUTH] Login after registration failed:", err);
           return res.status(500).json({ message: "Error logging in after registration" });
         }
-        res.status(201).json(user);
+        console.log("[AUTH] User registered and logged in successfully:", user.id);
+        return res.status(201).json(user);
       });
     } catch (err) {
       console.error("[AUTH] Registration error:", err);
@@ -133,7 +133,7 @@ export function setupAuth(app: Express) {
           errors: err.errors.map(e => ({ field: e.path.join('.'), message: e.message }))
         });
       }
-      res.status(500).json({ message: "Internal server error during registration" });
+      return res.status(500).json({ message: "Internal server error during registration" });
     }
   });
 
