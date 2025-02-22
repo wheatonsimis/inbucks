@@ -1,9 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { SiGoogle } from "react-icons/si";
+import { SiGoogle, SiApple, SiMicrosoftoutlook } from "react-icons/si";
 
 export function SocialAuthButtons() {
   const handleGoogleLogin = () => {
     window.location.href = "/api/auth/google";
+  };
+
+  const handleAppleLogin = () => {
+    // Placeholder for Apple OAuth
+    console.log("Apple login clicked");
+  };
+
+  const handleOutlookLogin = () => {
+    // Placeholder for Microsoft OAuth
+    console.log("Outlook login clicked");
   };
 
   return (
@@ -15,6 +25,22 @@ export function SocialAuthButtons() {
       >
         <SiGoogle className="h-5 w-5" />
         Continue with Google
+      </Button>
+      <Button
+        variant="outline"
+        className="w-full flex items-center gap-2"
+        onClick={handleAppleLogin}
+      >
+        <SiApple className="h-5 w-5" />
+        Continue with Apple
+      </Button>
+      <Button
+        variant="outline"
+        className="w-full flex items-center gap-2"
+        onClick={handleOutlookLogin}
+      >
+        <SiMicrosoftoutlook className="h-5 w-5" />
+        Continue with Outlook
       </Button>
     </div>
   );
