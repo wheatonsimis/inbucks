@@ -154,8 +154,8 @@ export function setupAuth(app: Express) {
       if (err instanceof z.ZodError) {
         const errors = err.errors.map(e => ({ field: e.path.join('.'), message: e.message }));
         console.error("[AUTH] Validation errors:", errors);
-        return res.status(400).json({ 
-          message: "Validation error", 
+        return res.status(400).json({
+          message: "Validation error",
           errors
         });
       }

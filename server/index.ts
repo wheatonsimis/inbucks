@@ -3,45 +3,48 @@ import { registerRoutes } from "./routes";
 import { setupVite, log } from "./vite";
 import { setupAuth } from "./auth";
 import path from "path";
+import cors from "cors";
 
 const app = express();
 
 // Trust proxy when running behind Vercel
 app.set('trust proxy', 1);
 
+// Configure CORS to allow credentials
+app.use(cors({
+  origin: process.env.NODE_ENV === "production" 
+    ? process.env.FRONTEND_URL || "https://your-domain.com" 
+    : "http://localhost:5000",
+  credentials: true,
+}));
+
 // Body parsing middleware must come before auth
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Request logging middleware
+// Enhanced request logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  console.log(`[REQUEST] ${req.method} ${path}`);
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+  console.log(`[REQUEST] ${req.method} ${path}`, {
+    headers: {
+      cookie: req.headers.cookie,
+      origin: req.headers.origin,
+      referer: req.headers.referer,
+    },
+    session: req.session,
+    user: req.user,
+  });
 
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
-    capturedJsonResponse = bodyJson;
+    const duration = Date.now() - start;
+    console.log(`[RESPONSE] ${req.method} ${path} ${res.statusCode} in ${duration}ms`, {
+      body: bodyJson,
+      headers: res.getHeaders(),
+    });
     return originalResJson.apply(res, [bodyJson, ...args]);
   };
-
-  res.on("finish", () => {
-    const duration = Date.now() - start;
-    console.log(`[RESPONSE] ${req.method} ${path} ${res.statusCode} in ${duration}ms`); 
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      log(logLine);
-    }
-  });
 
   next();
 });
@@ -56,9 +59,14 @@ app.use((req, res, next) => {
     console.log("[SETUP] Registering routes...");
     const server = await registerRoutes(app);
 
-    // Error handling middleware
+    // Error handling middleware with detailed logging
     app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-      console.error('[ERROR]', err);
+      console.error('[ERROR]', {
+        error: err,
+        stack: err.stack,
+        status: err.status || err.statusCode || 500,
+        message: err.message,
+      });
       const status = err.status || err.statusCode || 500;
       const message = err.message || "Internal Server Error";
       res.status(status).json({ message });

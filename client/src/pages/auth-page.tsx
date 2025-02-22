@@ -26,18 +26,16 @@ export default function AuthPage() {
     try {
       if (isLogin) {
         console.log("[AUTH-PAGE] Attempting login with email:", email);
-        const response = await loginMutation.mutateAsync({
+        await loginMutation.mutateAsync({
           email,
           password,
         });
-        console.log("[AUTH-PAGE] Login response:", response);
       } else {
         console.log("[AUTH-PAGE] Attempting registration with email:", email);
-        const response = await registerMutation.mutateAsync({
+        await registerMutation.mutateAsync({
           email,
           password,
         });
-        console.log("[AUTH-PAGE] Registration response:", response);
       }
     } catch (error) {
       console.error("[AUTH-PAGE] Auth error details:", {
