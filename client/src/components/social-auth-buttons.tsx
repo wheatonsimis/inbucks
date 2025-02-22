@@ -13,9 +13,9 @@ export function SocialAuthButtons() {
     console.log("Apple login clicked");
   };
 
-  const handleOutlookLogin = () => {
+  const handleMicrosoftLogin = () => {
     // Placeholder for Microsoft OAuth
-    console.log("Outlook login clicked");
+    console.log("Microsoft login clicked");
   };
 
   return (
@@ -39,10 +39,10 @@ export function SocialAuthButtons() {
       <Button
         variant="outline"
         className="w-full flex items-center gap-2"
-        onClick={handleOutlookLogin}
+        onClick={handleMicrosoftLogin}
       >
         <FaMicrosoft className="h-5 w-5" />
-        Continue with Outlook
+        Continue with Microsoft
       </Button>
     </div>
   );
