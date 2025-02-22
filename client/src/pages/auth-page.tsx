@@ -1,11 +1,4 @@
 import { useAuth } from "@/hooks/use-auth";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,14 +23,15 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center">Create an Account</CardTitle>
-          <CardDescription className="text-center">
-            Enter your details below to get started
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="max-w-[1000px] mx-auto grid grid-cols-2 gap-20">
+        <div>
+          <h2 className="text-3xl font-semibold">Email Response Marketplace</h2>
+          <p className="mt-4 text-muted-foreground">
+            Monetize your expertise by offering premium email responses. Set your own rates, define response times, and build your reputation in our trusted marketplace.
+          </p>
+        </div>
+
+        <div>
           <form onSubmit={handleEmailSignup} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -71,15 +65,15 @@ export default function AuthPage() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
+              <span className="bg-gray-50 px-2 text-muted-foreground">
                 Or continue with
               </span>
             </div>
           </div>
 
           <SocialAuthButtons />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
