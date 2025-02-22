@@ -16,6 +16,7 @@ export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
 
   if (user) {
+    console.log("[AUTH-PAGE] User already authenticated, redirecting to dashboard");
     return <Redirect to="/dashboard" />;
   }
 
@@ -25,31 +26,46 @@ export default function AuthPage() {
 
     try {
       if (isLogin) {
-        console.log("Attempting login with:", { email });
-        await loginMutation.mutateAsync({
+        console.log("[AUTH-PAGE] Attempting login with email:", email);
+        const response = await loginMutation.mutateAsync({
           email,
           password,
         });
+        console.log("[AUTH-PAGE] Login response:", response);
         toast({
           title: "Login successful",
           description: "Welcome back!",
         });
       } else {
-        console.log("Attempting registration with:", { email });
-        await registerMutation.mutateAsync({
+        console.log("[AUTH-PAGE] Attempting registration with email:", email);
+        const response = await registerMutation.mutateAsync({
           email,
           password,
         });
+        console.log("[AUTH-PAGE] Registration response:", response);
         toast({
           title: "Registration successful",
           description: "Welcome to our platform!",
         });
       }
     } catch (error) {
-      console.error("Auth error:", error);
+      console.error("[AUTH-PAGE] Auth error details:", {
+        error,
+        type: isLogin ? "login" : "registration",
+        email,
+      });
+
+      let errorMessage = "An unexpected error occurred";
+      if (error instanceof Error) {
+        console.error("[AUTH-PAGE] Error stack:", error.stack);
+        errorMessage = error.message;
+      } else {
+        console.error("[AUTH-PAGE] Non-Error object thrown:", error);
+      }
+
       toast({
         title: isLogin ? "Login failed" : "Registration failed",
-        description: error instanceof Error ? error.message : "Please try again",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
