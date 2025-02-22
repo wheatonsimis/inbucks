@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, log } from "./vite";
+import { setupAuth } from "./auth";
 import path from "path";
 
 const app = express();
@@ -8,6 +9,7 @@ const app = express();
 // Trust proxy when running behind Vercel
 app.set('trust proxy', 1);
 
+// Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -15,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  console.log(`[REQUEST] ${req.method} ${path}`); // Add this line for debugging
+  console.log(`[REQUEST] ${req.method} ${path}`);
   let capturedJsonResponse: Record<string, any> | undefined = undefined;
 
   const originalResJson = res.json;
@@ -45,7 +47,11 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Register API routes first
+  // Setup authentication first
+  console.log("[SETUP] Setting up authentication...");
+  setupAuth(app);
+
+  // Register API routes
   console.log("[SETUP] Registering routes...");
   const server = await registerRoutes(app);
 
@@ -60,20 +66,16 @@ app.use((req, res, next) => {
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
-    // In production, serve static files from the correct directory
     const staticDir = path.join(process.cwd(), 'dist', 'public');
     console.log('Serving static files from:', staticDir);
 
-    // Serve static files with proper caching
     app.use(express.static(staticDir, {
       maxAge: '1y',
       etag: true
     }));
 
-    // Handle all routes
     app.all('*', (req, res, next) => {
       console.log('[REQUEST] Handling route:', req.path);
-      // API routes should be handled by the API router
       if (req.path.startsWith('/api')) {
         console.log('[API] Forwarding to API handler:', req.path);
         next();
