@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { SiGoogle, SiApple, SiMicrosoft } from "react-icons/si";
+import { SiGoogle, SiApple } from "react-icons/si";
+import { FaMicrosoft } from "react-icons/fa";
 
 export function SocialAuthButtons() {
   const handleGoogleLogin = () => {
-    window.location.href = "/api/auth/google";
+    // Placeholder for Google OAuth
+    console.log("Google login clicked");
   };
 
   const handleAppleLogin = () => {
@@ -17,7 +19,7 @@ export function SocialAuthButtons() {
   };
 
   return (
-    <div className="flex flex-col gap-3 w-full">
+    <div className="flex flex-col gap-3">
       <Button
         variant="outline"
         className="w-full flex items-center gap-2"
@@ -39,7 +41,7 @@ export function SocialAuthButtons() {
         className="w-full flex items-center gap-2"
         onClick={handleOutlookLogin}
       >
-        <SiMicrosoft className="h-5 w-5" />
+        <FaMicrosoft className="h-5 w-5" />
         Continue with Outlook
       </Button>
     </div>
