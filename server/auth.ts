@@ -6,7 +6,7 @@ import { scrypt, randomBytes, timingSafeEqual } from "crypto";
 import { promisify } from "util";
 import { storage } from "./storage";
 import { User as SelectUser } from "@shared/schema";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { z } from "zod";
 
 declare global {
   namespace Express {
@@ -28,6 +28,12 @@ async function comparePasswords(supplied: string, stored: string) {
   const suppliedBuf = (await scryptAsync(supplied, salt, 64)) as Buffer;
   return timingSafeEqual(hashedBuf, suppliedBuf);
 }
+
+const registerSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
 export function setupAuth(app: Express) {
   console.log("[AUTH] Starting auth setup...");
@@ -57,7 +63,7 @@ export function setupAuth(app: Express) {
         const user = await storage.getUserByUsername(username);
         if (!user || !user.password || !(await comparePasswords(password, user.password))) {
           console.log("[AUTH] Login failed: Invalid credentials");
-          return done(null, false);
+          return done(null, false, { message: "Invalid username or password" });
         }
         console.log("[AUTH] Login successful for user:", username);
         return done(null, user);
@@ -77,6 +83,9 @@ export function setupAuth(app: Express) {
     try {
       console.log("[AUTH] Deserializing user:", id);
       const user = await storage.getUser(id);
+      if (!user) {
+        return done(new Error("User not found"));
+      }
       done(null, user);
     } catch (err) {
       console.error("[AUTH] Deserialization error:", err);
@@ -85,18 +94,26 @@ export function setupAuth(app: Express) {
   });
 
   // Registration endpoint
-  app.post("/api/register", async (req, res, next) => {
+  app.post("/api/register", async (req, res) => {
     console.log("[AUTH] Registration attempt:", { username: req.body.username, email: req.body.email });
     try {
-      const existingUser = await storage.getUserByUsername(req.body.username);
+      const validatedData = registerSchema.parse(req.body);
+
+      const existingUser = await storage.getUserByUsername(validatedData.username);
       if (existingUser) {
         console.log("[AUTH] Registration failed: Username exists");
         return res.status(400).json({ message: "Username already exists" });
       }
 
-      const hashedPassword = await hashPassword(req.body.password);
+      const existingEmail = await storage.getUserByEmail(validatedData.email);
+      if (existingEmail) {
+        console.log("[AUTH] Registration failed: Email exists");
+        return res.status(400).json({ message: "Email already in use" });
+      }
+
+      const hashedPassword = await hashPassword(validatedData.password);
       const user = await storage.createUser({
-        ...req.body,
+        ...validatedData,
         password: hashedPassword,
       });
 
@@ -104,13 +121,19 @@ export function setupAuth(app: Express) {
       req.login(user, (err) => {
         if (err) {
           console.error("[AUTH] Login after registration failed:", err);
-          return next(err);
+          return res.status(500).json({ message: "Error logging in after registration" });
         }
         res.status(201).json(user);
       });
     } catch (err) {
       console.error("[AUTH] Registration error:", err);
-      next(err);
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ 
+          message: "Validation error", 
+          errors: err.errors.map(e => ({ field: e.path.join('.'), message: e.message }))
+        });
+      }
+      res.status(500).json({ message: "Internal server error during registration" });
     }
   });
 
@@ -120,16 +143,16 @@ export function setupAuth(app: Express) {
     passport.authenticate("local", (err, user, info) => {
       if (err) {
         console.error("[AUTH] Login error:", err);
-        return next(err);
+        return res.status(500).json({ message: "Internal server error during login" });
       }
       if (!user) {
         console.log("[AUTH] Login failed: Invalid credentials");
-        return res.status(401).json({ message: "Invalid credentials" });
+        return res.status(401).json({ message: info?.message || "Invalid credentials" });
       }
       req.login(user, (err) => {
         if (err) {
           console.error("[AUTH] Session creation error:", err);
-          return next(err);
+          return res.status(500).json({ message: "Error creating session" });
         }
         console.log("[AUTH] Login successful:", user.id);
         res.json(user);
@@ -138,12 +161,12 @@ export function setupAuth(app: Express) {
   });
 
   // Logout endpoint
-  app.post("/api/logout", (req, res, next) => {
+  app.post("/api/logout", (req, res) => {
     console.log("[AUTH] Logout attempt for user:", req.user?.id);
     req.logout((err) => {
       if (err) {
         console.error("[AUTH] Logout error:", err);
-        return next(err);
+        return res.status(500).json({ message: "Error during logout" });
       }
       console.log("[AUTH] Logout successful");
       res.sendStatus(200);
