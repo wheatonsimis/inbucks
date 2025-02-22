@@ -1,7 +1,7 @@
 import { User, InsertUser, Message, Transaction } from "@shared/schema";
 import session from "express-session";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { users, messages, transactions } from "@shared/schema";
 import connectPg from "connect-pg-simple";
 import { pool } from "./db";
@@ -46,24 +46,37 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const [user] = await db.insert(users).values(insertUser).returning();
-    return user;
+    try {
+      const [user] = await db.insert(users).values(insertUser).returning();
+      return user;
+    } catch (error) {
+      console.error("[STORAGE] Error creating user:", error);
+      throw new Error("Failed to create user");
+    }
   }
 
   async getUserMessages(userId: number): Promise<Message[]> {
     return await db
       .select()
       .from(messages)
-      .where(eq(messages.senderId, userId))
-      .or(eq(messages.recipientId, userId));
+      .where(
+        or(
+          eq(messages.senderId, userId),
+          eq(messages.recipientId, userId)
+        )
+      );
   }
 
   async getUserTransactions(userId: number): Promise<Transaction[]> {
     return await db
       .select()
       .from(transactions)
-      .where(eq(transactions.senderId, userId))
-      .or(eq(transactions.recipientId, userId));
+      .where(
+        or(
+          eq(transactions.senderId, userId),
+          eq(transactions.recipientId, userId)
+        )
+      );
   }
 
   async createMessage(message: Omit<Message, "id" | "createdAt" | "updatedAt">): Promise<Message> {

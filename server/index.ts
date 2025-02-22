@@ -76,12 +76,9 @@ app.use((req, res, next) => {
       }));
 
       app.all('*', (req, res, next) => {
-        console.log('[REQUEST] Handling route:', req.path);
         if (req.path.startsWith('/api')) {
-          console.log('[API] Forwarding to API handler:', req.path);
           next();
         } else {
-          console.log('[SPA] Serving index.html for:', req.path);
           res.sendFile(path.join(staticDir, 'index.html'));
         }
       });
