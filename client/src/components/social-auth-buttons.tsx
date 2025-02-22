@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { SiGoogle, SiApple, SiMicrosoft } from "react-icons/si";
+import { SiGoogle, SiApple } from "react-icons/si";
+import { BsMicrosoft } from "react-icons/bs";
 
 export function SocialAuthButtons() {
   const handleGoogleLogin = () => {
@@ -40,7 +41,7 @@ export function SocialAuthButtons() {
         className="w-full flex items-center gap-2"
         onClick={handleMicrosoftLogin}
       >
-        <SiMicrosoft className="h-5 w-5" />
+        <BsMicrosoft className="h-5 w-5" />
         Continue with Microsoft
       </Button>
     </div>

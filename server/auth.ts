@@ -58,7 +58,7 @@ export function setupAuth(app: Express) {
   passport.use(
     new LocalStrategy(
       { usernameField: 'email' },
-      async (email, password, done) => {
+      async (email: string, password: string, done: (error: any, user?: any, options?: { message: string }) => void) => {
         try {
           console.log("[AUTH] Attempting login for email:", email);
           const user = await storage.getUserByEmail(email);
@@ -83,7 +83,7 @@ export function setupAuth(app: Express) {
     )
   );
 
-  passport.serializeUser((user, done) => {
+  passport.serializeUser((user: Express.User, done) => {
     console.log("[AUTH] Serializing user:", user.id);
     done(null, user.id);
   });
@@ -145,7 +145,7 @@ export function setupAuth(app: Express) {
   // Login endpoint
   app.post("/api/login", (req, res, next) => {
     console.log("[AUTH] Login attempt:", req.body.email);
-    passport.authenticate("local", (err, user, info) => {
+    passport.authenticate("local", (err: Error | null, user: Express.User | false, info: { message: string } | undefined) => {
       if (err) {
         console.error("[AUTH] Login error:", err);
         return res.status(500).json({ message: "Internal server error during login" });
